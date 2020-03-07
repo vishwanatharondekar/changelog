@@ -1,0 +1,11 @@
+export const FEATURES = "Features";
+export const FIXES = "Fixes";
+export const DOCS = "Docs";
+export const STYLE = "Style";
+export const REFACTOR = "Refactor";
+export const PERFORMANCE = "performance";
+export const TEST = "Test";
+export const BUILD = "Build";
+export const CI = "CI";
+export const CHORE = "Chore";
+export const REVERT = "Revert";
