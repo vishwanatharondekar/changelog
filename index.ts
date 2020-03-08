@@ -14,6 +14,7 @@ import {
   REVERT_CASE_CHECK,
   allFormattedPRS_MAP
 } from "./constants";
+import COMMITIZEN_PR_TYPE from "./interfaces";
 
 const args = process.argv.slice(2);
 const prevRelease = args[0];
@@ -89,8 +90,10 @@ const logFormattedPRS = (type: string, PRS: Array<string>) => {
   console.log("\n");
 };
 
-for (let key in allFormattedPRS_MAP) {
-  const allFormattedPR_MAP = allFormattedPRS_MAP[key];
+let key: keyof typeof allFormattedPRS_MAP;
+
+for (key in allFormattedPRS_MAP) {
+  const allFormattedPR_MAP: COMMITIZEN_PR_TYPE = allFormattedPRS_MAP[key];
   logFormattedPRS(allFormattedPR_MAP.type, allFormattedPR_MAP.PRS);
 }
 

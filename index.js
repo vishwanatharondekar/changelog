@@ -70,7 +70,8 @@ const logFormattedPRS = (type, PRS) => {
     }
     console.log("\n");
 };
-for (let key in constants_1.allFormattedPRS_MAP) {
+let key;
+for (key in constants_1.allFormattedPRS_MAP) {
     const allFormattedPR_MAP = constants_1.allFormattedPRS_MAP[key];
     logFormattedPRS(allFormattedPR_MAP.type, allFormattedPR_MAP.PRS);
 }
