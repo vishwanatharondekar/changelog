@@ -11,4 +11,5 @@ exports.BUILD = "Build";
 exports.CI = "CI";
 exports.CHORE = "Chore";
 exports.REVERT = "Revert";
+exports.OTHERS = "others";
 //# sourceMappingURL=constants.js.map

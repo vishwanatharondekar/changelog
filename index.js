@@ -25,6 +25,7 @@ const BUILD_PRS = [];
 const CI_PRS = [];
 const CHORE_PRS = [];
 const REVERT_PRS = [];
+const OTHER_PRS = [];
 exports.allPRsFormatted = allPRs.split("\n").map((prTitle, index) => {
     prTitle = prTitle.replace(/<.*>/, "") + " " + allPRIds[index];
     const regex = /(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)/g;
@@ -64,6 +65,9 @@ exports.allPRsFormatted = allPRs.split("\n").map((prTitle, index) => {
             case "revert":
                 REVERT_PRS.push(prTitle);
                 break;
+            default:
+                OTHER_PRS.push(prTitle);
+                break;
         }
     }
 });
@@ -98,5 +102,7 @@ if (CHORE_PRS.length > 0)
     logFormattedPRS(constants_1.CHORE, CHORE_PRS);
 if (REVERT_PRS.length > 0)
     logFormattedPRS(constants_1.REVERT, REVERT_PRS);
+if (OTHER_PRS.length > 0)
+    logFormattedPRS(constants_1.OTHERS, OTHER_PRS);
 console.log("------------------------------------CHANGE LOG ENDS------------------------------------------------\n");
 //# sourceMappingURL=index.js.map

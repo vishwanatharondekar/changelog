@@ -9,3 +9,4 @@ export const BUILD = "Build";
 export const CI = "CI";
 export const CHORE = "Chore";
 export const REVERT = "Revert";
+export const OTHERS = "others";

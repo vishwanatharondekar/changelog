@@ -10,7 +10,8 @@ import {
   BUILD,
   CI,
   CHORE,
-  REVERT
+  REVERT,
+  OTHERS
 } from "./constants";
 const args = process.argv.slice(2);
 const prevRelease = args[0];
@@ -37,6 +38,7 @@ const BUILD_PRS: Array<string> = [];
 const CI_PRS: Array<string> = [];
 const CHORE_PRS: Array<string> = [];
 const REVERT_PRS: Array<string> = [];
+const OTHER_PRS: Array<string> = [];
 
 export const allPRsFormatted = allPRs.split("\n").map((prTitle, index) => {
   prTitle = prTitle.replace(/<.*>/, "") + " " + allPRIds[index];
@@ -77,6 +79,9 @@ export const allPRsFormatted = allPRs.split("\n").map((prTitle, index) => {
       case "revert":
         REVERT_PRS.push(prTitle);
         break;
+      default:
+        OTHER_PRS.push(prTitle);
+        break;
     }
   }
 });
@@ -105,6 +110,7 @@ if (BUILD_PRS.length > 0) logFormattedPRS(BUILD, BUILD_PRS);
 if (CI_PRS.length > 0) logFormattedPRS(CI, CI_PRS);
 if (CHORE_PRS.length > 0) logFormattedPRS(CHORE, CHORE_PRS);
 if (REVERT_PRS.length > 0) logFormattedPRS(REVERT, REVERT_PRS);
+if (OTHER_PRS.length > 0) logFormattedPRS(OTHERS, OTHER_PRS);
 
 console.log(
   "------------------------------------CHANGE LOG ENDS------------------------------------------------\n"
