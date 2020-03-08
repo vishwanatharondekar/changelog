@@ -14,59 +14,47 @@ const allPRIds = allPRs.split("\n").map(prTitle => {
     }
     return "";
 });
-const FEAT_PRS = [];
-const FIX_PRS = [];
-const DOCS_PRS = [];
-const STYLE_PRS = [];
-const REFACTOR_PRS = [];
-const PERF_PRS = [];
-const TEST_PRS = [];
-const BUILD_PRS = [];
-const CI_PRS = [];
-const CHORE_PRS = [];
-const REVERT_PRS = [];
-const OTHER_PRS = [];
 exports.allPRsFormatted = allPRs.split("\n").map((prTitle, index) => {
     prTitle = prTitle.replace(/<.*>/, "") + " " + allPRIds[index];
     const regex = /(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)/g;
     const match = prTitle.match(regex);
     if (match) {
         switch (match[0]) {
-            case "feat":
-                FEAT_PRS.push(prTitle);
+            case constants_1.FEAT_CASE_CHECK:
+                constants_1.allFormattedPRS_MAP[constants_1.FEAT_CASE_CHECK].PRS.push(prTitle);
                 break;
-            case "fix":
-                FIX_PRS.push(prTitle);
+            case constants_1.FIX_CASE_CHECK:
+                constants_1.allFormattedPRS_MAP[constants_1.FIX_CASE_CHECK].PRS.push(prTitle);
                 break;
-            case "docs":
-                DOCS_PRS.push(prTitle);
+            case constants_1.DOCS_CASE_CHECK:
+                constants_1.allFormattedPRS_MAP[constants_1.DOCS_CASE_CHECK].PRS.push(prTitle);
                 break;
-            case "style":
-                STYLE_PRS.push(prTitle);
+            case constants_1.STYLE_CASE_CHECK:
+                constants_1.allFormattedPRS_MAP[constants_1.STYLE_CASE_CHECK].PRS.push(prTitle);
                 break;
-            case "refactor":
-                REFACTOR_PRS.push(prTitle);
+            case constants_1.REFACTOR_CASE_CHECK:
+                constants_1.allFormattedPRS_MAP[constants_1.REFACTOR_CASE_CHECK].PRS.push(prTitle);
                 break;
-            case "perf":
-                PERF_PRS.push(prTitle);
+            case constants_1.PERF_CASE_CHECK:
+                constants_1.allFormattedPRS_MAP[constants_1.PERF_CASE_CHECK].PRS.push(prTitle);
                 break;
-            case "test":
-                TEST_PRS.push(prTitle);
+            case constants_1.TEST_CASE_CHECK:
+                constants_1.allFormattedPRS_MAP[constants_1.TEST_CASE_CHECK].PRS.push(prTitle);
                 break;
-            case "build":
-                BUILD_PRS.push(prTitle);
+            case constants_1.BUILD_CASE_CHECK:
+                constants_1.allFormattedPRS_MAP[constants_1.BUILD_CASE_CHECK].PRS.push(prTitle);
                 break;
-            case "ci":
-                CI_PRS.push(prTitle);
+            case constants_1.CI_CASE_CHECK:
+                constants_1.allFormattedPRS_MAP[constants_1.CI_CASE_CHECK].PRS.push(prTitle);
                 break;
-            case "chore":
-                CHORE_PRS.push(prTitle);
+            case constants_1.CHORE_CASE_CHECK:
+                constants_1.allFormattedPRS_MAP[constants_1.CHORE_CASE_CHECK].PRS.push(prTitle);
                 break;
-            case "revert":
-                REVERT_PRS.push(prTitle);
+            case constants_1.REVERT_CASE_CHECK:
+                constants_1.allFormattedPRS_MAP[constants_1.REVERT_CASE_CHECK].PRS.push(prTitle);
                 break;
             default:
-                OTHER_PRS.push(prTitle);
+                constants_1.allFormattedPRS_MAP[constants_1.OTHERS].PRS.push(prTitle);
                 break;
         }
     }
@@ -82,23 +70,9 @@ const logFormattedPRS = (type, PRS) => {
     }
     console.log("\n");
 };
-const allFormattedPRS_TYPES = [
-    { type: constants_1.FEATURES, PRS: FEAT_PRS },
-    { type: constants_1.FIXES, PRS: FIX_PRS },
-    { type: constants_1.DOCS, PRS: DOCS_PRS },
-    { type: constants_1.STYLE, PRS: STYLE_PRS },
-    { type: constants_1.REFACTOR, PRS: REFACTOR_PRS },
-    { type: constants_1.PERFORMANCE, PRS: PERF_PRS },
-    { type: constants_1.TEST, PRS: TEST_PRS },
-    { type: constants_1.BUILD, PRS: BUILD_PRS },
-    { type: constants_1.CI, PRS: CI_PRS },
-    { type: constants_1.CHORE, PRS: CHORE_PRS },
-    { type: constants_1.REVERT, PRS: REVERT_PRS },
-    { type: constants_1.OTHERS, PRS: OTHER_PRS }
-];
-for (let i = 0; i < allFormattedPRS_TYPES.length; i++) {
-    const allFormattedPRS_TYPE = allFormattedPRS_TYPES[i];
-    logFormattedPRS(allFormattedPRS_TYPE.type, allFormattedPRS_TYPE.PRS);
+for (let key in constants_1.allFormattedPRS_MAP) {
+    const allFormattedPR_MAP = constants_1.allFormattedPRS_MAP[key];
+    logFormattedPRS(allFormattedPR_MAP.type, allFormattedPR_MAP.PRS);
 }
 console.log("------------------------------------CHANGE LOG ENDS------------------------------------------------\n");
 //# sourceMappingURL=index.js.map

@@ -1,19 +1,19 @@
 import { execSync } from "child_process";
 import {
-  FEATURES,
-  FIXES,
-  DOCS,
-  STYLE,
-  REFACTOR,
-  PERFORMANCE,
-  TEST,
-  BUILD,
-  CI,
-  CHORE,
-  REVERT,
-  OTHERS
+  OTHERS,
+  FIX_CASE_CHECK,
+  DOCS_CASE_CHECK,
+  FEAT_CASE_CHECK,
+  STYLE_CASE_CHECK,
+  REFACTOR_CASE_CHECK,
+  PERF_CASE_CHECK,
+  TEST_CASE_CHECK,
+  BUILD_CASE_CHECK,
+  CI_CASE_CHECK,
+  CHORE_CASE_CHECK,
+  REVERT_CASE_CHECK,
+  allFormattedPRS_MAP
 } from "./constants";
-import COMMITIZEN_PR_TYPE from "./interfaces";
 
 const args = process.argv.slice(2);
 const prevRelease = args[0];
@@ -29,60 +29,47 @@ const allPRIds = allPRs.split("\n").map(prTitle => {
   return "";
 });
 
-const FEAT_PRS: Array<string> = [];
-const FIX_PRS: Array<string> = [];
-const DOCS_PRS: Array<string> = [];
-const STYLE_PRS: Array<string> = [];
-const REFACTOR_PRS: Array<string> = [];
-const PERF_PRS: Array<string> = [];
-const TEST_PRS: Array<string> = [];
-const BUILD_PRS: Array<string> = [];
-const CI_PRS: Array<string> = [];
-const CHORE_PRS: Array<string> = [];
-const REVERT_PRS: Array<string> = [];
-const OTHER_PRS: Array<string> = [];
-
 export const allPRsFormatted = allPRs.split("\n").map((prTitle, index) => {
   prTitle = prTitle.replace(/<.*>/, "") + " " + allPRIds[index];
   const regex = /(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)/g;
   const match = prTitle.match(regex);
   if (match) {
     switch (match[0]) {
-      case "feat":
-        FEAT_PRS.push(prTitle);
+      case FEAT_CASE_CHECK:
+        allFormattedPRS_MAP[FEAT_CASE_CHECK].PRS.push(prTitle);
         break;
-      case "fix":
-        FIX_PRS.push(prTitle);
+      case FIX_CASE_CHECK:
+        allFormattedPRS_MAP[FIX_CASE_CHECK].PRS.push(prTitle);
         break;
-      case "docs":
-        DOCS_PRS.push(prTitle);
+      case DOCS_CASE_CHECK:
+        allFormattedPRS_MAP[DOCS_CASE_CHECK].PRS.push(prTitle);
         break;
-      case "style":
-        STYLE_PRS.push(prTitle);
+      case STYLE_CASE_CHECK:
+        allFormattedPRS_MAP[STYLE_CASE_CHECK].PRS.push(prTitle);
         break;
-      case "refactor":
-        REFACTOR_PRS.push(prTitle);
+      case REFACTOR_CASE_CHECK:
+        allFormattedPRS_MAP[REFACTOR_CASE_CHECK].PRS.push(prTitle);
         break;
-      case "perf":
-        PERF_PRS.push(prTitle);
+      case PERF_CASE_CHECK:
+        allFormattedPRS_MAP[PERF_CASE_CHECK].PRS.push(prTitle);
         break;
-      case "test":
-        TEST_PRS.push(prTitle);
+      case TEST_CASE_CHECK:
+        allFormattedPRS_MAP[TEST_CASE_CHECK].PRS.push(prTitle);
         break;
-      case "build":
-        BUILD_PRS.push(prTitle);
+      case BUILD_CASE_CHECK:
+        allFormattedPRS_MAP[BUILD_CASE_CHECK].PRS.push(prTitle);
         break;
-      case "ci":
-        CI_PRS.push(prTitle);
+      case CI_CASE_CHECK:
+        allFormattedPRS_MAP[CI_CASE_CHECK].PRS.push(prTitle);
         break;
-      case "chore":
-        CHORE_PRS.push(prTitle);
+      case CHORE_CASE_CHECK:
+        allFormattedPRS_MAP[CHORE_CASE_CHECK].PRS.push(prTitle);
         break;
-      case "revert":
-        REVERT_PRS.push(prTitle);
+      case REVERT_CASE_CHECK:
+        allFormattedPRS_MAP[REVERT_CASE_CHECK].PRS.push(prTitle);
         break;
       default:
-        OTHER_PRS.push(prTitle);
+        allFormattedPRS_MAP[OTHERS].PRS.push(prTitle);
         break;
     }
   }
@@ -102,24 +89,9 @@ const logFormattedPRS = (type: string, PRS: Array<string>) => {
   console.log("\n");
 };
 
-const allFormattedPRS_TYPES: Array<COMMITIZEN_PR_TYPE> = [
-  { type: FEATURES, PRS: FEAT_PRS },
-  { type: FIXES, PRS: FIX_PRS },
-  { type: DOCS, PRS: DOCS_PRS },
-  { type: STYLE, PRS: STYLE_PRS },
-  { type: REFACTOR, PRS: REFACTOR_PRS },
-  { type: PERFORMANCE, PRS: PERF_PRS },
-  { type: TEST, PRS: TEST_PRS },
-  { type: BUILD, PRS: BUILD_PRS },
-  { type: CI, PRS: CI_PRS },
-  { type: CHORE, PRS: CHORE_PRS },
-  { type: REVERT, PRS: REVERT_PRS },
-  { type: OTHERS, PRS: OTHER_PRS }
-];
-
-for (let i = 0; i < allFormattedPRS_TYPES.length; i++) {
-  const allFormattedPRS_TYPE = allFormattedPRS_TYPES[i];
-  logFormattedPRS(allFormattedPRS_TYPE.type, allFormattedPRS_TYPE.PRS);
+for (let key in allFormattedPRS_MAP) {
+  const allFormattedPR_MAP = allFormattedPRS_MAP[key];
+  logFormattedPRS(allFormattedPR_MAP.type, allFormattedPR_MAP.PRS);
 }
 
 console.log(
