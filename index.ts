@@ -13,6 +13,8 @@ import {
   REVERT,
   OTHERS
 } from "./constants";
+import COMMITIZEN_PR_TYPE from "./interfaces";
+
 const args = process.argv.slice(2);
 const prevRelease = args[0];
 const curRelease = args[1];
@@ -92,6 +94,7 @@ console.log(
 console.log("\n");
 
 const logFormattedPRS = (type: string, PRS: Array<string>) => {
+  if (PRS.length === 0) return;
   console.log(`## ${type}`);
   for (let i = 0; i < PRS.length; i++) {
     console.log("*" + PRS[i]);
@@ -99,18 +102,25 @@ const logFormattedPRS = (type: string, PRS: Array<string>) => {
   console.log("\n");
 };
 
-if (FEAT_PRS.length > 0) logFormattedPRS(FEATURES, FEAT_PRS);
-if (FIX_PRS.length > 0) logFormattedPRS(FIXES, FIX_PRS);
-if (FIX_PRS.length > 0) logFormattedPRS(DOCS, FIX_PRS);
-if (STYLE_PRS.length > 0) logFormattedPRS(STYLE, STYLE_PRS);
-if (REFACTOR_PRS.length > 0) logFormattedPRS(REFACTOR, REFACTOR_PRS);
-if (PERF_PRS.length > 0) logFormattedPRS(PERFORMANCE, PERF_PRS);
-if (TEST_PRS.length > 0) logFormattedPRS(TEST, TEST_PRS);
-if (BUILD_PRS.length > 0) logFormattedPRS(BUILD, BUILD_PRS);
-if (CI_PRS.length > 0) logFormattedPRS(CI, CI_PRS);
-if (CHORE_PRS.length > 0) logFormattedPRS(CHORE, CHORE_PRS);
-if (REVERT_PRS.length > 0) logFormattedPRS(REVERT, REVERT_PRS);
-if (OTHER_PRS.length > 0) logFormattedPRS(OTHERS, OTHER_PRS);
+const allFormattedPRS_TYPES: Array<COMMITIZEN_PR_TYPE> = [
+  { type: FEATURES, PRS: FEAT_PRS },
+  { type: FIXES, PRS: FIX_PRS },
+  { type: DOCS, PRS: DOCS_PRS },
+  { type: STYLE, PRS: STYLE_PRS },
+  { type: REFACTOR, PRS: REFACTOR_PRS },
+  { type: PERFORMANCE, PRS: PERF_PRS },
+  { type: TEST, PRS: TEST_PRS },
+  { type: BUILD, PRS: BUILD_PRS },
+  { type: CI, PRS: CI_PRS },
+  { type: CHORE, PRS: CHORE_PRS },
+  { type: REVERT, PRS: REVERT_PRS },
+  { type: OTHERS, PRS: OTHER_PRS }
+];
+
+for (let i = 0; i < allFormattedPRS_TYPES.length; i++) {
+  const allFormattedPRS_TYPE = allFormattedPRS_TYPES[i];
+  logFormattedPRS(allFormattedPRS_TYPE.type, allFormattedPRS_TYPE.PRS);
+}
 
 console.log(
   "------------------------------------CHANGE LOG ENDS------------------------------------------------\n"

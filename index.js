@@ -74,35 +74,31 @@ exports.allPRsFormatted = allPRs.split("\n").map((prTitle, index) => {
 console.log("\n--------------------------------CHANGE LOG STARTS-----------------------------------------");
 console.log("\n");
 const logFormattedPRS = (type, PRS) => {
+    if (PRS.length === 0)
+        return;
     console.log(`## ${type}`);
     for (let i = 0; i < PRS.length; i++) {
         console.log("*" + PRS[i]);
     }
     console.log("\n");
 };
-if (FEAT_PRS.length > 0)
-    logFormattedPRS(constants_1.FEATURES, FEAT_PRS);
-if (FIX_PRS.length > 0)
-    logFormattedPRS(constants_1.FIXES, FIX_PRS);
-if (FIX_PRS.length > 0)
-    logFormattedPRS(constants_1.DOCS, FIX_PRS);
-if (STYLE_PRS.length > 0)
-    logFormattedPRS(constants_1.STYLE, STYLE_PRS);
-if (REFACTOR_PRS.length > 0)
-    logFormattedPRS(constants_1.REFACTOR, REFACTOR_PRS);
-if (PERF_PRS.length > 0)
-    logFormattedPRS(constants_1.PERFORMANCE, PERF_PRS);
-if (TEST_PRS.length > 0)
-    logFormattedPRS(constants_1.TEST, TEST_PRS);
-if (BUILD_PRS.length > 0)
-    logFormattedPRS(constants_1.BUILD, BUILD_PRS);
-if (CI_PRS.length > 0)
-    logFormattedPRS(constants_1.CI, CI_PRS);
-if (CHORE_PRS.length > 0)
-    logFormattedPRS(constants_1.CHORE, CHORE_PRS);
-if (REVERT_PRS.length > 0)
-    logFormattedPRS(constants_1.REVERT, REVERT_PRS);
-if (OTHER_PRS.length > 0)
-    logFormattedPRS(constants_1.OTHERS, OTHER_PRS);
+const allFormattedPRS_TYPES = [
+    { type: constants_1.FEATURES, PRS: FEAT_PRS },
+    { type: constants_1.FIXES, PRS: FIX_PRS },
+    { type: constants_1.DOCS, PRS: DOCS_PRS },
+    { type: constants_1.STYLE, PRS: STYLE_PRS },
+    { type: constants_1.REFACTOR, PRS: REFACTOR_PRS },
+    { type: constants_1.PERFORMANCE, PRS: PERF_PRS },
+    { type: constants_1.TEST, PRS: TEST_PRS },
+    { type: constants_1.BUILD, PRS: BUILD_PRS },
+    { type: constants_1.CI, PRS: CI_PRS },
+    { type: constants_1.CHORE, PRS: CHORE_PRS },
+    { type: constants_1.REVERT, PRS: REVERT_PRS },
+    { type: constants_1.OTHERS, PRS: OTHER_PRS }
+];
+for (let i = 0; i < allFormattedPRS_TYPES.length; i++) {
+    const allFormattedPRS_TYPE = allFormattedPRS_TYPES[i];
+    logFormattedPRS(allFormattedPRS_TYPE.type, allFormattedPRS_TYPE.PRS);
+}
 console.log("------------------------------------CHANGE LOG ENDS------------------------------------------------\n");
 //# sourceMappingURL=index.js.map
