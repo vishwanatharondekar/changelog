@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint --project ."
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^13.7.6",
     "tsc": "^1.20150623.0",
-    "typescript": "^3.8.2"
+    "tslint": "^6.0.0",
+    "typescript": "^3.8.3"
   }
 }
