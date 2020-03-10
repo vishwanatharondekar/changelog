@@ -1,19 +1,5 @@
 import { execSync } from "child_process";
-import {
-  OTHERS,
-  FIX_CASE_CHECK,
-  DOCS_CASE_CHECK,
-  FEAT_CASE_CHECK,
-  STYLE_CASE_CHECK,
-  REFACTOR_CASE_CHECK,
-  PERF_CASE_CHECK,
-  TEST_CASE_CHECK,
-  BUILD_CASE_CHECK,
-  CI_CASE_CHECK,
-  CHORE_CASE_CHECK,
-  REVERT_CASE_CHECK,
-  allFormattedPRS_MAP
-} from "./constants";
+import { allFormattedPRS_MAP, OTHERS, REVERT_CASE_CHECK } from "./constants";
 import COMMITIZEN_PR_TYPE from "./interfaces";
 
 const args = process.argv.slice(2);
@@ -31,49 +17,21 @@ const allPRIds = allPRs.split("\n").map(prTitle => {
 });
 
 export const allPRsFormatted = allPRs.split("\n").map((prTitle, index) => {
+  let key: keyof typeof allFormattedPRS_MAP;
+  let concatAllRegex: string = "";
   prTitle = prTitle.replace(/<.*>/, "") + " " + allPRIds[index];
-  const regex = /(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)/g;
-  const match = prTitle.match(regex);
-  if (match) {
-    switch (match[0]) {
-      case FEAT_CASE_CHECK:
-        allFormattedPRS_MAP[FEAT_CASE_CHECK].PRS.push(prTitle);
-        break;
-      case FIX_CASE_CHECK:
-        allFormattedPRS_MAP[FIX_CASE_CHECK].PRS.push(prTitle);
-        break;
-      case DOCS_CASE_CHECK:
-        allFormattedPRS_MAP[DOCS_CASE_CHECK].PRS.push(prTitle);
-        break;
-      case STYLE_CASE_CHECK:
-        allFormattedPRS_MAP[STYLE_CASE_CHECK].PRS.push(prTitle);
-        break;
-      case REFACTOR_CASE_CHECK:
-        allFormattedPRS_MAP[REFACTOR_CASE_CHECK].PRS.push(prTitle);
-        break;
-      case PERF_CASE_CHECK:
-        allFormattedPRS_MAP[PERF_CASE_CHECK].PRS.push(prTitle);
-        break;
-      case TEST_CASE_CHECK:
-        allFormattedPRS_MAP[TEST_CASE_CHECK].PRS.push(prTitle);
-        break;
-      case BUILD_CASE_CHECK:
-        allFormattedPRS_MAP[BUILD_CASE_CHECK].PRS.push(prTitle);
-        break;
-      case CI_CASE_CHECK:
-        allFormattedPRS_MAP[CI_CASE_CHECK].PRS.push(prTitle);
-        break;
-      case CHORE_CASE_CHECK:
-        allFormattedPRS_MAP[CHORE_CASE_CHECK].PRS.push(prTitle);
-        break;
-      case REVERT_CASE_CHECK:
-        allFormattedPRS_MAP[REVERT_CASE_CHECK].PRS.push(prTitle);
-        break;
-      default:
-        allFormattedPRS_MAP[OTHERS].PRS.push(prTitle);
-        break;
+  for (key in allFormattedPRS_MAP) {
+    if (key !== OTHERS) {
+      concatAllRegex += allFormattedPRS_MAP[key].regex;
+      if (key !== REVERT_CASE_CHECK) {
+        concatAllRegex += "|";
+      }
     }
   }
+  const regex = new RegExp(concatAllRegex, "g");
+  const match = prTitle.match(regex);
+  key = (match && (match[0] as keyof typeof allFormattedPRS_MAP)) || OTHERS;
+  allFormattedPRS_MAP[key].PRS.push(prTitle);
 });
 
 console.log(

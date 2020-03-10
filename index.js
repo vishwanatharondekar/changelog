@@ -15,49 +15,21 @@ const allPRIds = allPRs.split("\n").map(prTitle => {
     return "";
 });
 exports.allPRsFormatted = allPRs.split("\n").map((prTitle, index) => {
+    let key;
+    let concatAllRegex = "";
     prTitle = prTitle.replace(/<.*>/, "") + " " + allPRIds[index];
-    const regex = /(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)/g;
-    const match = prTitle.match(regex);
-    if (match) {
-        switch (match[0]) {
-            case constants_1.FEAT_CASE_CHECK:
-                constants_1.allFormattedPRS_MAP[constants_1.FEAT_CASE_CHECK].PRS.push(prTitle);
-                break;
-            case constants_1.FIX_CASE_CHECK:
-                constants_1.allFormattedPRS_MAP[constants_1.FIX_CASE_CHECK].PRS.push(prTitle);
-                break;
-            case constants_1.DOCS_CASE_CHECK:
-                constants_1.allFormattedPRS_MAP[constants_1.DOCS_CASE_CHECK].PRS.push(prTitle);
-                break;
-            case constants_1.STYLE_CASE_CHECK:
-                constants_1.allFormattedPRS_MAP[constants_1.STYLE_CASE_CHECK].PRS.push(prTitle);
-                break;
-            case constants_1.REFACTOR_CASE_CHECK:
-                constants_1.allFormattedPRS_MAP[constants_1.REFACTOR_CASE_CHECK].PRS.push(prTitle);
-                break;
-            case constants_1.PERF_CASE_CHECK:
-                constants_1.allFormattedPRS_MAP[constants_1.PERF_CASE_CHECK].PRS.push(prTitle);
-                break;
-            case constants_1.TEST_CASE_CHECK:
-                constants_1.allFormattedPRS_MAP[constants_1.TEST_CASE_CHECK].PRS.push(prTitle);
-                break;
-            case constants_1.BUILD_CASE_CHECK:
-                constants_1.allFormattedPRS_MAP[constants_1.BUILD_CASE_CHECK].PRS.push(prTitle);
-                break;
-            case constants_1.CI_CASE_CHECK:
-                constants_1.allFormattedPRS_MAP[constants_1.CI_CASE_CHECK].PRS.push(prTitle);
-                break;
-            case constants_1.CHORE_CASE_CHECK:
-                constants_1.allFormattedPRS_MAP[constants_1.CHORE_CASE_CHECK].PRS.push(prTitle);
-                break;
-            case constants_1.REVERT_CASE_CHECK:
-                constants_1.allFormattedPRS_MAP[constants_1.REVERT_CASE_CHECK].PRS.push(prTitle);
-                break;
-            default:
-                constants_1.allFormattedPRS_MAP[constants_1.OTHERS].PRS.push(prTitle);
-                break;
+    for (key in constants_1.allFormattedPRS_MAP) {
+        if (key !== constants_1.OTHERS) {
+            concatAllRegex += constants_1.allFormattedPRS_MAP[key].regex;
+            if (key !== constants_1.REVERT_CASE_CHECK) {
+                concatAllRegex += "|";
+            }
         }
     }
+    const regex = new RegExp(concatAllRegex, "g");
+    const match = prTitle.match(regex);
+    key = (match && match[0]) || constants_1.OTHERS;
+    constants_1.allFormattedPRS_MAP[key].PRS.push(prTitle);
 });
 console.log("\n--------------------------------CHANGE LOG STARTS-----------------------------------------");
 console.log("\n");

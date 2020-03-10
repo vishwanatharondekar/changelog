@@ -24,17 +24,21 @@ exports.CI_CASE_CHECK = "ci";
 exports.CHORE_CASE_CHECK = "chore";
 exports.REVERT_CASE_CHECK = "revert";
 exports.allFormattedPRS_MAP = {
-    [exports.FEAT_CASE_CHECK]: { type: exports.FEATURES, PRS: [] },
-    [exports.FIX_CASE_CHECK]: { type: exports.FIXES, PRS: [] },
-    [exports.DOCS_CASE_CHECK]: { type: exports.DOCS, PRS: [] },
-    [exports.STYLE_CASE_CHECK]: { type: exports.STYLE, PRS: [] },
-    [exports.REFACTOR_CASE_CHECK]: { type: exports.REFACTOR, PRS: [] },
-    [exports.PERF_CASE_CHECK]: { type: exports.PERFORMANCE, PRS: [] },
-    [exports.TEST_CASE_CHECK]: { type: exports.TEST, PRS: [] },
-    [exports.BUILD_CASE_CHECK]: { type: exports.BUILD, PRS: [] },
-    [exports.CI_CASE_CHECK]: { type: exports.CI, PRS: [] },
-    [exports.CHORE_CASE_CHECK]: { type: exports.CHORE, PRS: [] },
-    [exports.REVERT_CASE_CHECK]: { type: exports.REVERT, PRS: [] },
-    [exports.OTHERS]: { type: exports.OTHERS, PRS: [] }
+    [exports.FEAT_CASE_CHECK]: { type: exports.FEATURES, PRS: [], regex: exports.FEAT_CASE_CHECK },
+    [exports.FIX_CASE_CHECK]: { type: exports.FIXES, PRS: [], regex: exports.FIX_CASE_CHECK },
+    [exports.DOCS_CASE_CHECK]: { type: exports.DOCS, PRS: [], regex: exports.DOCS_CASE_CHECK },
+    [exports.STYLE_CASE_CHECK]: { type: exports.STYLE, PRS: [], regex: exports.STYLE_CASE_CHECK },
+    [exports.REFACTOR_CASE_CHECK]: {
+        type: exports.REFACTOR,
+        PRS: [],
+        regex: exports.REFACTOR_CASE_CHECK
+    },
+    [exports.PERF_CASE_CHECK]: { type: exports.PERFORMANCE, PRS: [], regex: exports.PERF_CASE_CHECK },
+    [exports.TEST_CASE_CHECK]: { type: exports.TEST, PRS: [], regex: exports.TEST_CASE_CHECK },
+    [exports.BUILD_CASE_CHECK]: { type: exports.BUILD, PRS: [], regex: exports.BUILD_CASE_CHECK },
+    [exports.CI_CASE_CHECK]: { type: exports.CI, PRS: [], regex: exports.CI_CASE_CHECK },
+    [exports.CHORE_CASE_CHECK]: { type: exports.CHORE, PRS: [], regex: exports.CHORE_CASE_CHECK },
+    [exports.REVERT_CASE_CHECK]: { type: exports.REVERT, PRS: [], regex: exports.REVERT_CASE_CHECK },
+    [exports.OTHERS]: { type: exports.OTHERS, PRS: [], regex: "" }
 };
 //# sourceMappingURL=constants.js.map

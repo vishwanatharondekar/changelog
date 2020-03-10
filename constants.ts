@@ -41,16 +41,20 @@ interface AllFormattedPRS_MAP {
 }
 
 export const allFormattedPRS_MAP: AllFormattedPRS_MAP = {
-  [FEAT_CASE_CHECK]: { type: FEATURES, PRS: [] },
-  [FIX_CASE_CHECK]: { type: FIXES, PRS: [] },
-  [DOCS_CASE_CHECK]: { type: DOCS, PRS: [] },
-  [STYLE_CASE_CHECK]: { type: STYLE, PRS: [] },
-  [REFACTOR_CASE_CHECK]: { type: REFACTOR, PRS: [] },
-  [PERF_CASE_CHECK]: { type: PERFORMANCE, PRS: [] },
-  [TEST_CASE_CHECK]: { type: TEST, PRS: [] },
-  [BUILD_CASE_CHECK]: { type: BUILD, PRS: [] },
-  [CI_CASE_CHECK]: { type: CI, PRS: [] },
-  [CHORE_CASE_CHECK]: { type: CHORE, PRS: [] },
-  [REVERT_CASE_CHECK]: { type: REVERT, PRS: [] },
-  [OTHERS]: { type: OTHERS, PRS: [] }
+  [FEAT_CASE_CHECK]: { type: FEATURES, PRS: [], regex: FEAT_CASE_CHECK },
+  [FIX_CASE_CHECK]: { type: FIXES, PRS: [], regex: FIX_CASE_CHECK },
+  [DOCS_CASE_CHECK]: { type: DOCS, PRS: [], regex: DOCS_CASE_CHECK },
+  [STYLE_CASE_CHECK]: { type: STYLE, PRS: [], regex: STYLE_CASE_CHECK },
+  [REFACTOR_CASE_CHECK]: {
+    type: REFACTOR,
+    PRS: [],
+    regex: REFACTOR_CASE_CHECK
+  },
+  [PERF_CASE_CHECK]: { type: PERFORMANCE, PRS: [], regex: PERF_CASE_CHECK },
+  [TEST_CASE_CHECK]: { type: TEST, PRS: [], regex: TEST_CASE_CHECK },
+  [BUILD_CASE_CHECK]: { type: BUILD, PRS: [], regex: BUILD_CASE_CHECK },
+  [CI_CASE_CHECK]: { type: CI, PRS: [], regex: CI_CASE_CHECK },
+  [CHORE_CASE_CHECK]: { type: CHORE, PRS: [], regex: CHORE_CASE_CHECK },
+  [REVERT_CASE_CHECK]: { type: REVERT, PRS: [], regex: REVERT_CASE_CHECK },
+  [OTHERS]: { type: OTHERS, PRS: [], regex: "" }
 };
